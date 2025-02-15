@@ -29,7 +29,7 @@ export class LoginComponent {
           // Se asume que el token viene en response.token
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('user', JSON.stringify(response.user));
-          this.router.navigate(['/login']); // Redirige si el token es inválido
+          this.router.navigate(['/dashboard']); // Redirige si el token es inválido
 
           // Aquí puedes redirigir al usuario o mostrar un mensaje de éxito.
         },
