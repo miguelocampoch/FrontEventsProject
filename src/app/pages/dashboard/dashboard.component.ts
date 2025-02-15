@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../api.service';
+import { AuthService } from '../../services/auth/auth.service';
+
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   events: any[] = [];
 
-  constructor(private router: Router, private apiService: ApiService){
+  constructor(private router: Router, private apiService: ApiService,private authService: AuthService){
     this.apiService.getEvents().subscribe({
       next: (data) => {
         console.log('Eventos recibidos:', data);
@@ -28,9 +30,17 @@ export class DashboardComponent {
   ngOnInit(): void {
 
   }
-  logout(): void {
-    alert("logout")
-    //localStorage.removeItem('access_token');
-    //this.router.navigate(['/login']); // Redirige al login
+  logout() {
+
+    this.authService.logout().subscribe({
+      next: () => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user');
+
+        this.router.navigate(['/login']);
+      },
+      error: () => {} // En caso de error, igual limpiamos la sesión
+    });
+
   }
 }

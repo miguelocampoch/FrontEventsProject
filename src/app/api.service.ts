@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://127.0.0.1:8000/api'; // URL base de la API
+  private apiUrl = 'http://127.0.0.1:8000/api'; // URL base de la API
 
   constructor(private http: HttpClient) {}
 
@@ -18,8 +18,11 @@ export class ApiService {
   }
 
   getEvents(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/events`, {
+    return this.http.get<any>(`${this.apiUrl}/events`, {
       headers: this.getHeaders()
     });
   }
+
+
+
 }
